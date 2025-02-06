@@ -7,4 +7,4 @@ title: blogababber
 
 ### Latest Post: TBD
 
-### Next Post: [How to create a blog with `Quartz`, `GitHub`, and `Cloudflare`](./2025/02/2025-02-06.md)
+### Next Post: [How to create a blog with `Quartz`, `GitHub`, and `Cloudflare`](./2025/02/06-how-to-create-a-blog-with-quartz-github-and-cloudflare.md)
