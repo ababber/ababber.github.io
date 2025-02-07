@@ -68,6 +68,7 @@ cd content
 # create a test markdown file
 touch test.md
 
+# return to the repo root
 cd ..
 
 # this will build a preview of your blog
