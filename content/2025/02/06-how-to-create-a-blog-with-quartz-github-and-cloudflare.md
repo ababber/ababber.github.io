@@ -1,5 +1,5 @@
 ---
-title: How to create a blog with Quartz, GitHub, and Cloudflare
+title: How to Create a Blog with Quartz, GitHub, and Cloudflare
 draft: false 
 tags:
   - quartz
