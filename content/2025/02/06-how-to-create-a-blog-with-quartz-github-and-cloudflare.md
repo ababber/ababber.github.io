@@ -42,7 +42,11 @@ tags:
 # clone with git
 git clone https://github.com/username/username.github.io.git
 
-# clone with the github cli
+# 0. if you get an error, then use the GitHub 
+# cli to login to GitHub on your command line
+# with the following command: `gh auth login`
+
+# 1. clone with the github cli:
 # gh repo clone username/username.github.io 
 
 # change directory into repo root
@@ -153,14 +157,10 @@ npx quartz build --serve
 # commit the changes and deploy your quartz site
 npx quartz sync
 
-# 0. if you get an error, then use the GitHub 
-# cli to login to GitHub with your command line
-# with the following command: `gh auth login`
-
-# 1. it will take a few minutes for your page to 
+# 0. it will take a few minutes for your page to 
 # go live at username.github.io
 
-# 2. in your username.github.io Actions tab, you 
+# 1. in your username.github.io Actions tab, you 
 # can check the status of your build and deploy, 
 # any errors will be listed here
 ```
