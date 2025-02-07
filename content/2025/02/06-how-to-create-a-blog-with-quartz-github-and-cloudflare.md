@@ -54,17 +54,24 @@ npm i
 # initialize quartz and create an index.md
 npx quartz create 
 
+# select: Empty Quartz
+# select: Treat links as relative paths
+
 # cd into create/, which is where quartz will 
 # look to create static pages 
-cd create
+cd content 
 
 # create a test markdown file
 touch test.md
 
+cd ..
+
 # this will build a preview of your blog
 npx quartz build --serve
 
-# 1. Once the build is done, go to localhost:8080
+# 0. Ensure your browser allows http traffic
+
+# 1. Once the build is done, go to http://localhost:8080
 # in your browser.
 
 # 2. In the left hand Explorer column, you should
@@ -73,6 +80,8 @@ npx quartz build --serve
 
 ## 4. Setup Deploy in Repo
 
+* In your favorite code editor, create a file called `deploy.yml`.
+  * I recommend [vscode](https://code.visualstudio.com/).
 * In the hidden directory `/username.github.io/.github/workflows/`, add `deploy.yml`
 * The content of `deploy.yml` is below:
 
@@ -126,14 +135,16 @@ jobs:
 
 ## 5. Configure GitHub for [Quartz](https://github.com/jackyzha0/quartz) Deploy
 
-* Go to `https://github.com/username/username.github.io`.
+* Go to your [Quartz](https://github.com/jackyzha0/quartz) `Fork`, which will be something like: `https://github.com/username/username.github.io`.
 * Click on the `Settings` tab for the `repo`.
 * In the left hand column, click on `Pages`.
 * Under `Build and deployment` in the `Source` drop down menu, select `GitHub Actions`
 * We've already setup the workflow with `deploy.yml`.
-* At the bottom, select `Enforce HTTPS`
+* At the bottom, select `Enforce HTTPS` if not selected.
 
 ## 6. Sync Content
+
+* In `quartz.config.ts`, change the `baseUrl` property to your GitHub Pages root domain, which should be something like `username.github.io`.
 
 ```sh
 # check if everything looks fine
@@ -141,6 +152,10 @@ npx quartz build --serve
 
 # commit the changes and deploy your quartz site
 npx quartz sync
+
+# 0. if you get an error, then use the GitHub 
+# cli to login to GitHub with your command line
+# with the following command: `gh auth login`
 
 # 1. it will take a few minutes for your page to 
 # go live at username.github.io
@@ -189,7 +204,7 @@ npx quartz sync
 ## 9. Final Things to Configure
 
 * Go to your repo on your local machine.
-* In `quartz.config.ts` change the `baseUrl` property to you `customdomain.com` root.
+* In `quartz.config.ts` change the `baseUrl` property to your `customdomain.com` root.
 * Sync changes to GitHub with: `npx quartz sync`.
 * Wait for the build and deploy to finish in your `username.github.io` repo.
 * Check if your `customdomain.com` is live.
