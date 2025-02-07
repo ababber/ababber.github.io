@@ -61,7 +61,7 @@ npx quartz create
 # select: Empty Quartz
 # select: Treat links as relative paths
 
-# cd into create/, which is where quartz will 
+# cd into content/, which is where quartz will 
 # look to create static pages 
 cd content 
 
