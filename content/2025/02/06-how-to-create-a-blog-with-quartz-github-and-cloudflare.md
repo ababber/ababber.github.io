@@ -1,5 +1,6 @@
 ---
 title: How to Create a Blog with Quartz, GitHub, and Cloudflare
+date: 2025-02-06
 draft: false 
 tags:
   - quartz
@@ -172,7 +173,7 @@ npx quartz sync
 * Create an account.
 * Search for a domain name.
 * Register it (prices will vary depending on the domain name).
-* From you `Account Home` go to the domain you just created.
+* From your `Account Home` go to the domain you just created.
 * Click on `DNS` and ensure you're in the `Records` section.
 * Select `Add record`:
   * Type: `CNAME`
