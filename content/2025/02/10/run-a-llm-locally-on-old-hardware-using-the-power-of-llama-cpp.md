@@ -13,12 +13,12 @@ tags:
   - intel 
 ---
 
-> I have a Mac with Intel silicon. I also have an eGPU with an AMD 6900XT (...allright!). BUT I COULDN'T HARNESS THAT POWER AND RUN A LLM LOCALLY WITH OLLAMA!!! If you have a Mac with Intel silicon, then you know that the CPU and integrated GPU are insufficient for running a LLM locally. I don't want to buy new hardware to play around with LLMs locally. Then I found [llama.cpp](https://github.com/ggerganov/llama.cpp). This is an amazing repo that helps democratize the use of LLMs on local machines. However, the install instructions on the [llama.cpp](https://github.com/ggerganov/llama.cpp) repo did not cover the issues I came accross, which is why I was motivated to write up a post to help others out. If you have older hardware that isn't supported by the current tools to run a LLM locally (specifically a Mac with Intel silicon and an AMD eGPU), then this post is for you! As a side note, if your hardware isn't a 1:1 match for what I have, but you realize that running the Vulkan SDK backend for [llama.cpp](https://github.com/ggerganov/llama.cpp) is the right fit for you, then this post may be useful for setting up the Vulkan backend.
+> I have a Mac with Intel silicon. I also have an eGPU with an AMD 6900XT (...allright!). BUT I COULDN'T HARNESS THAT POWER AND RUN A LLM LOCALLY WITH OLLAMA!!! If you have a Mac with Intel silicon, then you know that the CPU and integrated GPU are insufficient for running a LLM locally. I don't want to buy new hardware to play around with LLMs locally. Then I found [llama.cpp](https://github.com/ggerganov/llama.cpp). This is an amazing repo that helps democratize the use of LLMs on local machines. However, the install instructions on the [llama.cpp](https://github.com/ggerganov/llama.cpp) repo did not cover the issues I came across, which is why I was motivated to write up a post to help others out. If you have older hardware that isn't supported by the current tools to run a LLM locally (specifically a Mac with Intel silicon and an AMD eGPU), then this post is for you! As a side note, if your hardware isn't a 1:1 match for what I have, but you realize that running the Vulkan SDK backend for [llama.cpp](https://github.com/ggerganov/llama.cpp) is the right fit for you, then this post may be useful for setting up the Vulkan backend.
 
 ## 0. Dependencies and Setup
 
 * If you have a Mac with Intel silicon, then you need to use the `Vulkan` backend when setting up [llama.cpp](https://github.com/ggerganov/llama.cpp) because [llama.cpp](https://github.com/ggerganov/llama.cpp) only supports the `Metal` api on Macs for Apple silicon and AMD only provides `HIP` support for Linux.
-* Make sure you havn't installed `MoltenVK` or other `Vulkan` sdk components piecemeal via a package manager like `brew` because that can interfere with the `Vulkan` sdk install.
+* Make sure you haven't installed `MoltenVK` or other `Vulkan` SDK components piecemeal via a package manager like `brew` because that can interfere with the `Vulkan` SDK install.
 * Download and install the [Vulkan SDK](https://vulkan.lunarg.com/sdk/home).
 * Install `cmake` and `libomp` with your favorite package manager.
 * Make sure you verify the `sha256` hash to ensure the file you downloaded is correct.
@@ -145,7 +145,7 @@ c++: warning: /usr/local/opt/libomp/lib/libomp.dylib: 'linker' input unused [-Wu
 
 * You will need to download models to run with `llama.cpp`.
 * [Hugging Face](https://huggingface.co/) is an excellent source for models, but make sure you get quantized models. Quantized models have been changed to work on hardware that does not have enough `RAM` to run the model as it was intended. The only change in the model is how large of an input the model will work with by [reducing the bits](https://huggingface.co/docs/optimum/en/concept_guides/quantization).
-* I will create a future post regarding quantizing models, but for now we will use a prequantized model for the purposes of testing our build.
+* I will create a future post regarding quantizing models, but for now we will use a pre-quantized model for the purposes of testing our build.
 * `cd ../` or go one level up outside of the `llama.cpp` directory and `mkdir llm-models`. We will store all of our models outside of the `llama.cpp` repo.
 * Go to the newly created directory `cd llm-models`.
 * I downloaded an `8 bit` `Meta Llama 3.1` model from [ggml's hugging face](https://huggingface.co/ggml-org), which was quantized using a `Q4_0` quantization method.
@@ -173,17 +173,17 @@ ggml_vulkan: 0 = AMD Radeon RX 6900 XT (MoltenVK) | uma: 0 | fp16: 1 | warp size
 
 ## 4. Last Minute Cleanup
 
-* On my Mac, the `Vulkan` sdk created a bunch of `dylib`, `static lib`, `pc`, and `header` files in `/usr/local/lib`.
+* On my Mac, the `Vulkan` SDK created a bunch of `dylib`, `static lib`, `pc`, and `header` files in `/usr/local/lib`.
 * When you run `brew doctor --verbose`, `brew` will give you a bunch of warnings that it found unbrewed files.
 * You can choose to ignore this warning. However, if it bothers you like it bothered me. You'll want to do something about it.
 * `WARNING:` The next steps involve altering `brew` locally, and is a temporary fix. If you are not comfortable working with `bash` functions or altering `ruby` code, do not proceed.
 * Go to `/usr/local/Homebrew/Library/Homebrew`.
 * There you will find `diagnostic.rb`.
 * Open this file and change the `allow_list` array in the following functions `def check_for_stray_dylibs`, `def check_for_stray_static_libs`, `def check_for_stray_pcs`, and `def check_for_stray_headers`, with the corresponding files. You can run `brew doctor --verbose` to get the list of files again.
-* Make sure not to include the files that were output by `brew doctor --verbose` and saved to a separate file. If there were unbrewed files before installing the `Vulkan` sdk, then they must be addressed separately and are not part of the scope of this post.
+* Make sure not to include the files that were output by `brew doctor --verbose` and saved to a separate file. If there were unbrewed files before installing the `Vulkan` SDK, then they must be addressed separately and are not part of the scope of this post.
 * Once you have changed `diagnostic.rb`, save the file.
 * When you `cd /usr/local/Homebrew` and run `git status`, you will see that the `diagnostic.rb` is changed. We cannot commit these changes.
-* If you run `brew doctor --verbose` the files added to `/usr/local/lib` by the `Vulkan` sdk are no longer there.
+* If you run `brew doctor --verbose` the files added to `/usr/local/lib` by the `Vulkan` SDK are no longer there.
 * These changes are not permanent. To ensure I don't have to edit `diagnostic.rb` each time I upgrade `brew`. I wrote two `bash` functions and saved the list of `dylibs`, `static libs`, `pcs`, and `headers` to a `JSON` file.
 * Add the following functions to your `.bashrc`, `.zshrc` or `/custom` for `oh-my-zsh`
 
@@ -219,7 +219,7 @@ function update-brew()
 
 * `bash` will run all these commands in sequence from left to right, so the order matters.
 
-## 5. Resources
+## 5. References
 
 * [llama.cpp](https://github.com/ggerganov/llama.cpp)
 * [Hugging Face](https://huggingface.co/)
