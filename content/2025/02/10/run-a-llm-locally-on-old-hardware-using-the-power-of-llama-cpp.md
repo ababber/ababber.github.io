@@ -159,7 +159,7 @@ c++: warning: /usr/local/opt/libomp/lib/libomp.dylib: 'linker' input unused [-Wu
 cd llama.cpp
 
 # start interactive mode
-./build/bin/llama-cli -m ../llm-models/gemma-1.1-7b-it-Q4_K_M-GGUF/gemma-1.1-7b-it.Q4_K_M.gguf
+./build/bin/llama-cli -m ../llm-models/meta-llama-3.1-8b-instruct-q4_0.gguf
 ```
 
 * If everything went well, `llama.cpp` will see the AMD GPU:
