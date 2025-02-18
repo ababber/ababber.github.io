@@ -202,6 +202,8 @@ time zsh -i -c exit && time zsh -i -c "nvm --version" exit
 ```
 
 * The output will show an increased load time with `nvm`.
+* `bash` or `zsh` will read the commands left to right
+* `time zsh -i -c exit` will complete before `time zsh -i -c "nvm --version" exit`.
 
 ```TEXT
 Saving session...completed.
@@ -212,9 +214,6 @@ Restored session: Mon Feb 17 21:34:18 CST 2025
 Saving session...completed.
 zsh -i -c "nvm --version" exit  0.73s user 0.90s system 99% cpu 1.641 total
 ```
-
-* `bash` or `zsh` will read the commands left to right
-* `time zsh -i -c exit` will complete before `time zsh -i -c "nvm --version" exit`.
 
 |             | `time zsh -i -c "nvm --version" exit` | `time zsh -i -c exit` |
 | ----------- | ------------------------------------- | --------------------- |
