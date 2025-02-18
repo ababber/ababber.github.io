@@ -6,6 +6,7 @@ tags:
   - bash
   - zsh
   - nvm
+  - shell
   - node
   - npm
   - time
