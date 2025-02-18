@@ -215,8 +215,12 @@ zsh -i -c "nvm --version" exit  0.73s user 0.90s system 99% cpu 1.641 total
 
 * `bash` or `zsh` will read the commands left to right
 * `time zsh -i -c exit` will complete before `time zsh -i -c "nvm --version" exit`.
-* `0.32s user` v. `0.73s user`
-* `0.30s system` v. `0.90s system`
+
+|             | `time zsh -i -c "nvm --version" exit` | `time zsh -i -c exit` |
+| ----------- | ------------------------------------- | --------------------- |
+| User        | 0.73s                                 | 0.32s                 |
+| System      | 0.90s                                 | 0.30s                 |
+| Total       | 1.641                                 | 0.670                 |
 
 ## 3. References
 
