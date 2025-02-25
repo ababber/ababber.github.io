@@ -7,4 +7,4 @@ title: Ankit's Blog
 
 ### Latest Post: [How I Improved My Shell Load Time With a Lazy Load](./2025/02/17/how-i-improved-my-shell-load-time-with-a-lazy-load.md)
 
-### Next Post: [2025-02-24](./2025/02/24.md)
+### Next Post: [TBD](./tbd.md)
